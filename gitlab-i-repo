@@ -1,0 +1,12 @@
+#!/bin/sh
+
+reponame=$1
+token=syssiUSiZwZyV4sN8zP9
+
+test -z $repo_name && echo "Repo name required." 1>&2 && exit 1
+
+curl -H "Content-Type:application/json" http://your_domain_or_ip_here/api/v3/projects?private_token=$token -d "{ \"name\": \"$repo_name\",visibility_level=2 }"
+
+git remote add https://gitlab.com/$repo_name.git
+
+git push -u origin --all

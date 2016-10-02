@@ -1,0 +1,11 @@
+#!/bin/sh
+
+reponame=$1
+
+test -z $repo_name && echo "Repo name required." 1>&2 && exit 1
+
+curl -u 'fhcflx' https://api.github.com/user/repos -d '{"name":"$repo_name"}'
+
+git remote add https://fhcflx@github.com/$repo_name.git
+
+git push -u origin --all
