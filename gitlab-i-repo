@@ -1,12 +1,31 @@
 #!/bin/sh
 
-reponame=$1
+read -p 'Project name:' repo_name
+
+PS3='Please enter your choice:'
+options=("neuro-oncologia" "tumor-snc" "fhcflx-publications" "Quit")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "neuro-oncologia")
+            id=758202
+            ;;
+        "tumor-snc")
+            id=758202
+            ;;
+        "fhcflx-publications")
+            id=704563
+        "Quit")
+            break
+            ;;
+        *) echo invalid option;;
+    esac
+done
+
+read -p 'Visibility (true/false):' visibility
+
 token=syssiUSiZwZyV4sN8zP9
 
 test -z $repo_name && echo "Repo name required." 1>&2 && exit 1
 
-curl -H "Content-Type:application/json" http://your_domain_or_ip_here/api/v3/projects?private_token=$token -d "{ \"name\": \"$repo_name\",visibility_level=2 }"
-
-git remote add https://gitlab.com/$repo_name.git
-
-git push -u origin --all
+curl --header "private-token:$token" -X POST "https://gitlab.com/api/v3/projects?name=$repo_name&namespace_id=$id&public=$visibility"
