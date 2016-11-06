@@ -9,16 +9,21 @@ do
     case $opt in
         "neuro-oncologia")
             id=758202
+            break
             ;;
         "tumor-snc")
-            id=758202
+            id=704563
+            break
             ;;
         "fhcflx-publications")
-            id=704563
+            id=758207
+            break
+            ;;
         "Quit")
             break
             ;;
-        *) echo invalid option;;
+        *) echo invalid option
+            ;;
     esac
 done
 
