@@ -8,5 +8,6 @@ function bitbucket-i-repo {
 
     curl --user $username:$password https://api.bitbucket.org/1.0/repositories/ --data name=$reponame --data is_private='false'
     git remote add origin https://$username@bitbucket.org/$username/$reponame.git
+    git add . && git commit -m "primeiro"
     git push -u origin --all
 }
