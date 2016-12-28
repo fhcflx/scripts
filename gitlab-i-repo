@@ -3,7 +3,7 @@
 read -p 'Project name:' repo_name
 
 PS3='Please enter your choice:'
-options=("neuro-oncologia" "tumor-snc" "fhcflx-publications" "Quit")
+options=("neuro-oncologia" "oncologiaped" "fhcflx-publications" "fhcflx-meetings" "fhcflx-projects" "prepub" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -11,12 +11,24 @@ do
             id=758202
             break
             ;;
-        "tumor-snc")
+        "oncologiaped")
             id=704563
             break
             ;;
         "fhcflx-publications")
             id=758207
+            break
+            ;;
+        "fhcflx-meetings")
+            id=1089140
+            break
+            ;;
+        "fhcflx-projects")
+            id=1098050
+            break
+            ;;
+        "prepub")
+            id=1087522
             break
             ;;
         "Quit")
