@@ -1,11 +1,15 @@
 #!/bin/sh
 
-reponame=$1
+echo 'Reponame?'
+read reponame
 
-test -z $repo_name && echo "Repo name required." 1>&2 && exit 1
+echo 'Username?'
+read username
 
-curl -u 'fhcflx' https://api.github.com/user/repos -d '{"name":"$repo_name"}'
+test -z $reponame && echo "Repo name required." 1>&2 && exit 1
 
-git remote add https://fhcflx@github.com/$repo_name.git
+curl -u '$username' https://api.github.com/user/repos -d '{"name":"$reponame"}'
+
+git remote add https://$username@github.com/$reponame.git
 
 git push -u origin --all
