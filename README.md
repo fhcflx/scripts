@@ -24,6 +24,11 @@ $ git init
 * Tested in macOs and git bash for Windows, however it should work in unix-based systems; not tested for Windows Command or Powershell (sorry)
 * Deployment instructions: just put in any folder and run it
 
+### Known issues ###
+
+* Github script will not work after two-factor authentication set up
+* Gitlab script has to be modified for each user, once it has my repo and groups intel. You need to edit the code and use your own groups names and ids
+
 ### Contribution guidelines ###
 
 * Writing tests
