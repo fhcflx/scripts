@@ -11,7 +11,7 @@ read -s password
 
 curl -u $username:$password https://api.github.com/user/repos -d "{\"name\":\"$reponame\"}"
 
-echo \# README > README.md
+echo "# README" >> README.md
 
 git remote add https://$username@github.com/$reponame.git
 
