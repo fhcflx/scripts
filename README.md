@@ -27,4 +27,4 @@ These are easy scripts to set up new projects in Github, Gitlab, and Bitbucket u
 
 * @fhcflx
 * fhcflx@outlook.com
-* twitter: @fhcflx
+* twitter: fhcflx
