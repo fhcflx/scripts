@@ -5,7 +5,7 @@ These are easy scripts to set up new projects in Github, Gitlab, and Bitbucket u
 ### What is this repository for? ###
 
 * Use the scripts to set up new projects remotely in your preferred git server repository from the command line. You need to have an account in your server and know security specs for it.
-* Alpha version - 0.2.0
+* Alpha version - 0.2.1
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo) - very useful
 
 ### How do I get set up? ###
