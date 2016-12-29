@@ -11,9 +11,9 @@ read -s password
 
 curl -u $username:$password https://api.github.com/user/repos -d "{\"name\":\"$reponame\"}"
 
-echo \# README > README.md | echo \#\# $reponame >> README.md
+echo \# README > README.md && echo \#\# $reponame >> README.md
 
-git remote add origin https://$username@github.com/$username/$reponame.git
+git remote add origin https://"$username"@github.com/"$username"/$reponame.git
 
 git add . && git commit -m "first"
 
