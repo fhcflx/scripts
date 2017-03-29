@@ -41,7 +41,7 @@ done
 
 read -p 'Visibility (true/false):' visibility
 
-token=syssiUSiZwZyV4sN8zP9
+token=XYzszasGRM9ssASZfWQb
 
 test -z $repo_name && echo "Repo name required." 1>&2 && exit 1
 
