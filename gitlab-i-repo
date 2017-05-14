@@ -1,7 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-read -p 'Project name:' repo_name
-
+read -p 'Project name:' reponame
 PS3='Please enter your choice:'
 options=("neuro-oncologia" "oncologiaped" "fhcflx-publications" "fhcflx-meetings" "fhcflx-projects" "prepub" "Quit")
 select opt in "${options[@]}"
@@ -38,11 +37,52 @@ do
             ;;
     esac
 done
-
 read -p 'Visibility (true/false):' visibility
-
 token=XYzszasGRM9ssASZfWQb
+test -z $reponame && echo "Repo name required." 1>&2 && exit 1
 
-test -z $repo_name && echo "Repo name required." 1>&2 && exit 1
+curl --header "private-token:$token" -X POST "https://gitlab.com/api/v3/projects?name=$reponame&namespace_id=$id&public=$visibility"
+echo '# README > README.md
+## $reponame' >> README.md
+echo '.*
+!.gitignore' >> .gitignore
 
-curl --header "private-token:$token" -X POST "https://gitlab.com/api/v3/projects?name=$repo_name&namespace_id=$id&public=$visibility"
+# Initialize a directory with git, stage and commit existing files
+# Copyright 2013 Christopher Simpkins
+# Modificado: 2017 Francisco H C Felix
+# MIT License
+
+FILE_TYPE="."
+INITIAL_COMMIT_MESSAGE="Envio inicial"
+
+if [ -d ".git" ]; then
+  echo "Git foi inicializado nesse diretório."
+  exit 1
+else
+  git init
+  if (( $? )); then
+      echo "Não foi possível inicializar Git nesse diretório."
+      exit 1
+  fi
+  git add "$FILE_TYPE"
+  if (( $? )); then
+      echo "Não foi possível organizar os arquivos para enviar."
+      exit 1
+  fi
+  git commit -m "$INITIAL_COMMIT_MESSAGE"
+  if (( $? )); then
+      echo "Não foi possível realizar o envio inicial."
+      exit 1
+  fi
+  git remote add origin git@gitlab.com:$id/$reponame.git
+  git push -u origin master
+  if (( $? )); then
+      echo "Não foi possível submeter o envio inicial."
+      exit 1
+  fi
+#      touch README.md
+#      touch .gitignore
+  echo " ----- "
+  echo "Git foi inicializado no diretório e o envio inicial foi organizado e submetido com arquivos obedecendo ao padrão: '$FILE_TYPE'"
+fi
+exit 0

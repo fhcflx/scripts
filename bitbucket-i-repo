@@ -1,13 +1,51 @@
-function bitbucket-i-repo {
-    echo 'Username?'
-    read username
-    echo 'Password?'
-    read -s password  # -s flag hides password text
-    echo 'Repo name?'
-    read reponame
+#!/bin/bash
 
-    curl --user $username:$password https://api.bitbucket.org/1.0/repositories/ --data name=$reponame --data is_private='false'
-    git remote add origin https://$username@bitbucket.org/$username/$reponame.git
-    git add . && git commit -m "primeiro"
-    git push -u origin --all
-}
+read -p 'Repo name?' reponame
+read -p 'Username?' username
+read -s -p 'Password?' password  # -s flag hides password text
+
+curl --user $username:$password https://api.bitbucket.org/1.0/repositories/ --data name=$reponame --data is_private='false'
+echo '# README > README.md
+## $reponame' >> README.md
+echo '.*
+!.gitignore' >> .gitignore
+
+# Initialize a directory with git, stage and commit existing files
+# Copyright 2013 Christopher Simpkins
+# Modificado: 2017 Francisco H C Felix
+# MIT License
+
+FILE_TYPE="."
+INITIAL_COMMIT_MESSAGE="Envio inicial"
+
+if [ -d ".git" ]; then
+  echo "Git foi inicializado nesse diretório."
+  exit 1
+else
+  git init
+  if (( $? )); then
+      echo "Não foi possível inicializar Git nesse diretório."
+      exit 1
+  fi
+  git add "$FILE_TYPE"
+  if (( $? )); then
+      echo "Não foi possível organizar os arquivos para enviar."
+      exit 1
+  fi
+  git commit -m "$INITIAL_COMMIT_MESSAGE"
+  if (( $? )); then
+      echo "Não foi possível realizar o envio inicial."
+      exit 1
+  fi
+  git remote add origin git@bitbucket.org:fhcflx/$reponame.git
+  git push -u origin master
+  if (( $? )); then
+      echo "Não foi possível submeter o envio inicial."
+      exit 1
+  fi
+#      touch README.md
+#      touch .gitignore
+  echo " ----- "
+  echo "Git foi inicializado no diretório e o envio inicial foi organizado e submetido com arquivos obedecendo ao padrão: '$FILE_TYPE'"
+fi
+exit 0
