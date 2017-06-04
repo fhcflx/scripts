@@ -1,7 +1,7 @@
-#!/bin/bash
+r#!/bin/bash
 
-read -p 'Project name:' reponame
-PS3='Please enter your choice:'
+read -p 'Nome do projeto:' reponame
+PS3='Escolha o grupo para incluir o projeto:'
 options=("neuro-oncologia" "oncologiaped" "fhcflx-publications" "fhcflx-meetings" "fhcflx-projects" "prepub" "Quit")
 select opt in "${options[@]}"
 do
@@ -37,9 +37,9 @@ do
             ;;
     esac
 done
-read -p 'Visibility (true/false):' visibility
-token=XYzszasGRM9ssASZfWQb
-test -z $reponame && echo "Repo name required." 1>&2 && exit 1
+read -p 'Visibilidade (true/false):' visibility
+read -p 'Informe seu token:' token
+test -z $reponame && echo "Nome de repositório necessário." 1>&2 && exit 1
 
 curl --header "private-token:$token" -X POST "https://gitlab.com/api/v3/projects?name=$reponame&namespace_id=$id&public=$visibility"
 echo '# README > README.md
@@ -47,7 +47,7 @@ echo '# README > README.md
 echo '.*
 !.gitignore' >> .gitignore
 
-# Initialize a directory with git, stage and commit existing files
+# Inicializa um diretório com Git, adiciona e prepara os arquivos existente para envio.
 # Copyright 2013 Christopher Simpkins
 # Modificado: 2017 Francisco H C Felix
 # MIT License
