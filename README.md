@@ -1,42 +1,40 @@
 # README #
 
-These are easy scripts to set up new projects in Github, Gitlab, and Bitbucket using a CLI.
+Pequenos scripts (\<nome\>-i-repo) para criar novos repositórios no Github, Gitlab, Bitbucket e Gogs usando a CLI.
 
-### What is this repository for? ###
+### Para que é este repositório? ###
 
-* Use the scripts to set up new projects remotely in your preferred git server repository from the command line. You need to have an account in your server and know security specs for it.
-* Alpha version - 0.2.1
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo) - very useful
+* Use os scripts para configurar novos projetos remotamente no seu servidor Git preferido a partir de um terminal. É necessário ter uma conta e os dados de segurança (senha, segredo, etc) para o servidor.
+* Versão alfa - 0.3 - traduzido para português do Brasil
+* [Aprenda Markdown](https://bitbucket.org/tutorials/markdowndemo) - muito útil!
+* Também tem scripts (git-\<nome\>) para adicionar arquivos e realizar envios em massa com a mesma mensagem padronizada (vários repositórios ao mesmo tempo). __Evite usá-los o máximo possível!__ A melhor prática de envios (commits) com o Git continua sendo _faça envios frequentes, melhore depois e publique de uma vez só._   
 
-### How do I get set up? ###
+### Como eu configuro? ###
 
-* Bitbucket-i-repo works anywhere after first run. The other scripts must be run from the folder where they are.
-* No configuration needed, except initiate git repo in the desired folder
+* Os scripts tem que ser executados da pasta onde estão. Alternativamente, faça symlinks no seu PATH.
+* Nenhuma configuração necessária.
 
+```git
+
+$ github-i-repo
 ```
-#!git
 
-$ git init
-```
+* Sem dependências.
+* Sem configuração de dados necessária.
+* Testado no macOs Sierra e no git bash para Windows, todavia deve funcionar em qualquer sistema unix; não foi testado no terminal do Windows (command ou power shell) (sinto)
+* Instruções de instalação: apenas coloque em qualquer pasta e execute
 
-* No dependencies
-* No database configuration
-* Tested in macOs and git bash for Windows, however it should work in unix-based systems; not tested for Windows Command or Powershell (sorry)
-* Deployment instructions: just put in any folder and run it
+### Problemas conhecidos ###
 
-### Known issues ###
+* O script do Github não vai funcionar com autenticação de duas etapas.
 
-* Github script will not work after two-factor authentication set up
-* Gitlab script has to be modified for each user, once it has my repo and groups intel. You need to edit the code and use your own groups names and ids
+### Como contribuir ###
 
-### Contribution guidelines ###
+* Testando e relatando
+* Revisando código
+* O que quiser, na verdade
 
-* Writing tests
-* Code review
-* Other guidelines
+### Contato ###
 
-### Who do I talk to? ###
-
-* @fhcflx
 * fhcflx@outlook.com
-* twitter: fhcflx
+* twitter: @fhcflx
