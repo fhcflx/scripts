@@ -38,7 +38,7 @@ do
     esac
 done
 read -p 'Visibilidade (true/false):' visibility
-read -p 'Informe seu token:' token
+read -p 'Informe seu segredo (token):' token
 test -z $reponame && echo "Nome de repositório necessário." 1>&2 && exit 1
 
 curl --header "private-token:$token" -X POST "https://gitlab.com/api/v3/projects?name=$reponame&namespace_id=$id&public=$visibility"
