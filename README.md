@@ -15,12 +15,11 @@ Pequenos scripts (\<nome\>-i-repo) para criar novos repositórios no Github, Git
 * Nenhuma configuração necessária.
 
 ```git
-
 $ github-i-repo
 ```
 
 * Sem dependências.
-* Sem configuração de dados necessária.
+* O script do gitlab precisa ser editado para colocar seus grupos de projetos (estão descritos os meus).
 * Testado no macOs Sierra e no git bash para Windows, todavia deve funcionar em qualquer sistema unix; não foi testado no terminal do Windows (command ou power shell) (sinto)
 * Instruções de instalação: apenas coloque em qualquer pasta e execute
 
