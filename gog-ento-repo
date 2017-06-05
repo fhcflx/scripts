@@ -1,8 +1,8 @@
-#!/bin/bash
+# !/bin/bash
 
-read -p 'Repo name?' reponame
-read -p 'Username?' username
-read -s -p 'Password?' password
+read -p 'Nome do repositório?' reponame
+read -p 'Usuário?' username
+read -s -p 'Senha?' password
 
 curl -u $username:$password https://api.github.com/user/repos -d "{\"name\":\"$reponame\"}"
 echo '# README > README.md
@@ -10,7 +10,7 @@ echo '# README > README.md
 echo '.*
 !.gitignore' >> .gitignore
 
-# Initialize a directory with git, stage and commit existing files
+# Inicializa um diretório com Git, adiciona e prepara os arquivos existente para envio.
 # Copyright 2013 Christopher Simpkins
 # Modificado: 2017 Francisco H C Felix
 # MIT License

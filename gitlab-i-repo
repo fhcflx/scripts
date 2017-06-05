@@ -1,4 +1,4 @@
-r#!/bin/bash
+# !/bin/bash
 
 read -p 'Nome do projeto:' reponame
 PS3='Escolha o grupo para incluir o projeto:'
