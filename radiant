@@ -1,0 +1,2 @@
+# !/bin/bash
+wine .wine/drive_c/program\ files/radiantviewer64bit/radiantviewer.exe
