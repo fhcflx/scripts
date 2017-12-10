@@ -1,3 +1,4 @@
+#criar discos e maquina
 VBoxManage createhd --filename hdd1.vdi --size 2048
 VBoxManage createhd --filename hdd2.vdi --size 4096
 VBoxManage createvm --name Tatsumaki --ostype "Ubuntu_64" --register
@@ -6,10 +7,10 @@ VBoxManage storageattach Tatsumaki --storagectl "SATA Controller" --port 0 --dev
 VBoxManage storageattach Tatsumaki --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium hdd2.vdi
 VBoxManage storagectl Tatsumaki --name "IDE Controller" --add ide
 VBoxManage storageattach Tatsumaki --storagectl "IDE Controller" --port 0 --device 0 --type dvddrive --medium ~/documents/mini.iso
-VBoxManage modifyvm Tatsumaki --ioapic on
-VBoxManage modifyvm Tatsumaki --boot1 dvd --boot2 disk --boot3 none --boot4 none
-VBoxManage modifyvm Tatsumaki --memory 1024 --vram 128
-VBoxManage modifyvm Tatsumaki --natpf1 "ssh,tcp,,3022,,22" 
+VBoxManage modifyvm Tatsumaki --ioapic on --boot1 dvd --boot2 disk --memory 1024 --vram 128 --natpf1 "ssh,tcp,,3022,,22"
 #configurar VM
-VboxManage startvm Tatsumaki --type headless
-ssh -p 3022 francisco@127.0.0.1
+VBoxManage unattended install Tatsumaki --user=francisco --password=juv3n1a --hostname=Tatsumaki --package-selection-adjustment=minimal
+#preparar para usar VM
+VBoxManage storageattach Tatsumaki --storagectl "IDE Controller" --port 0 --device 0 --type dvddrive --medium emptydrive
+echo ~/.bashrc >> alias Tatsumakion="VboxManage startvm Tatsumaki --type headless"
+echo ~/.bashrc >> alias Tatsumaki="ssh -p 3022 francisco@127.0.0.1"
