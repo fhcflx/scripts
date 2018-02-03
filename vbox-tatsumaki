@@ -1,15 +1,20 @@
-VBoxManage createhd --filename hdd1.vdi --size 2048
-VBoxManage createhd --filename hdd2.vdi --size 4096
+# crie a VM e os dispositivos de armazenamento
 VBoxManage createvm --name Tatsumaki --ostype "Ubuntu_64" --register
+VBoxManage createhd --filename ~/'virtualbox vms'/Tatsumaki/hdd1.vdi --size 2048
+VBoxManage createhd --filename ~/'virtualbox vms'/Tatsumaki/hdd2.vdi --size 4096
 VBoxManage storagectl Tatsumaki --name "SATA Controller" --add sata --controller IntelAHCI
-VBoxManage storageattach Tatsumaki --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium hdd1.vdi
-VBoxManage storageattach Tatsumaki --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium hdd2.vdi
+VBoxManage storageattach Tatsumaki --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium ~/'virtualbox vms'/Tatsumaki/hdd1.vdi
 VBoxManage storagectl Tatsumaki --name "IDE Controller" --add ide
 VBoxManage storageattach Tatsumaki --storagectl "IDE Controller" --port 0 --device 0 --type dvddrive --medium ~/documents/mini.iso
 VBoxManage modifyvm Tatsumaki --ioapic on
 VBoxManage modifyvm Tatsumaki --boot1 dvd --boot2 disk --boot3 none --boot4 none
 VBoxManage modifyvm Tatsumaki --memory 1024 --vram 128
 VBoxManage modifyvm Tatsumaki --natpf1 "ssh,tcp,,3022,,22" 
-#configurar VM
+VBoxManage startvm Tatsumaki
+# configure a VM - usando o disco mini.iso, instalação mínima do Ubuntu 17.10, escolha instalar openssh
+# depois, desligue (opção power off) a VM
+# termine de configurar e entre na VM via ssh
+VBoxManage storageattach Tatsumaki --storagectl "SATA Controller" --port 1 --device 0 --type hdd --medium ~/'virtualbox vms'/Tatsumaki/hdd2.vdi
+VBoxManage storageattach Tatsumaki --storagectl "IDE Controller" --port 0 --device 0 --type dvddrive --medium none
 VboxManage startvm Tatsumaki --type headless
 ssh -p 3022 francisco@127.0.0.1

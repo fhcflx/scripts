@@ -1,0 +1,26 @@
+# script para rodar dentro da imagem virtual
+sudo apt-get update
+sudo apt-get install zfsutils-linux -y
+sudo apt-get install lxd -y
+sudo lxd init
+# escolha /dev/sdb para o disco zfs, escolha todos os default
+# configure o container
+lxc launch ubuntu:xenial monografias
+lxc exec monografias apt-get update
+lxc exec monografias bash
+#entre no container e instale R lá dentro
+sudo echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/" | sudo tee -a /etc/apt/sources.list
+sudo gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
+sudo gpg -a --export E084DAB9 | sudo apt-key add -
+apt-get update
+apt-get install r-base r-base-dev -y
+# volte para a VM e repita o seguinte para cada usuário
+lxc exec monografias adduser freirepmp
+lxc exec monografias adduser freirepmp sudo
+# entre no container pelo usuário
+lxc exec monografias su - freirepmp
+# alguns aliases úteis
+# para o host
+echo 'alias tatsumakion="VBoxManage startvm Tatsumaki --type headless"'>>.bashrc
+echo 'alias tatsumakioff="VBoxManage controlvm Tatsumaki poweroff"'>>.bashrc
+echo 'alias sshtatsumaki="ssh francisco@127.0.0.1 -p 3022"'>>.bashrc

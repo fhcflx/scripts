@@ -1,0 +1,35 @@
+# crie a VM e os dispositivos de armazenamento
+VBoxManage createvm --name Fubuki --ostype "Linux_64" --register
+VBoxManage createhd --filename ~/'virtualbox vms'/Fubuki/hdd0.vdi --size 1024
+VBoxManage createhd --filename ~/'virtualbox vms'/Fubuki/hdd3.vdi --size 8192
+VBoxManage storagectl Fubuki --name "SATA" --add sata --controller IntelAHCI
+VBoxManage storageattach Fubuki --storagectl "SATA" --port 0 --device 0 --type hdd --medium ~/'virtualbox vms'/Fubuki/hdd0.vdi
+VBoxManage storageattach Fubuki --storagectl "SATA" --port 1 --device 0 --type hdd --medium ~/'virtualbox vms'/Fubuki/hdd3.vdi
+VBoxManage storagectl Fubuki --name "IDE" --add ide
+VBoxManage storageattach Fubuki --storagectl "IDE" --port 0 --device 0 --type dvddrive --medium ~/documents/alpine-virt-3.6.2-x86_64.iso
+VBoxManage modifyvm Fubuki --ioapic on
+VBoxManage modifyvm Fubuki --boot1 dvd --boot2 disk --boot3 none --boot4 none
+VBoxManage modifyvm Fubuki --memory 512 --vram 16
+VBoxManage modifyvm Fubuki --natpf1 "ssh,tcp,,3122,,22"
+VBoxManage startvm Fubuki
+# configure a VM - usando o disco iso, instalação do Alpine 3.6.2, escolha instalar openssh, disco sda e sys
+# depois, desligue (opção power off) a VM
+VBoxManage storageattach Fubuki --storagectl "IDE" --port 0 --device 0 --type dvddrive --medium none
+# inicie e entre na vm
+VBoxManage startvm Fubuki
+# crie usuário não root
+adduser francisco
+adduser francisco wheel
+vi /etc/apk/repositories
+# tire o comentário dos repositórios edge
+apk update
+apk upgrade
+cat /etc/alpine-release #cheque a versão
+setup-disk -m data -s 0
+apk add lxd
+apk add btrfs-progs
+service lxd start
+lxd init
+# informe /dev/sdb e o resto default
+lxc launch images:alpine/edge satoshi
+
