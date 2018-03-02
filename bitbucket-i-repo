@@ -5,8 +5,8 @@ read -p 'Usuário?' username
 read -s -p 'Senha?' password
 
 curl --user $username:$password https://api.bitbucket.org/1.0/repositories/ --data name=$reponame --data is_private='false'
-echo '# README > README.md
-## $reponame' >> README.md
+echo '# README
+##' $reponame >> README.md
 echo '.*
 !.gitignore' >> .gitignore
 
